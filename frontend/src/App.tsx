@@ -10,9 +10,8 @@ import {
   AreaChart, Area, BarChart, Bar
 } from 'recharts';
 
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:8080'
-  : 'https://job-schedular-ff3b.onrender.com';
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080';
+
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
