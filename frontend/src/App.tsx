@@ -10,6 +10,10 @@ import {
   AreaChart, Area, BarChart, Bar
 } from 'recharts';
 
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8080'
+  : 'https://job-schedular-ff3b.onrender.com';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [metrics, setMetrics] = useState({
@@ -27,7 +31,7 @@ export default function App() {
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/dashboard/metrics');
+        const response = await axios.get(`${API_BASE}/api/dashboard/metrics`);
         setMetrics(response.data);
         
         setChartData(prev => {
@@ -53,14 +57,14 @@ export default function App() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/jobs');
+      const res = await axios.get(`${API_BASE}/api/jobs`);
       setJobs(res.data);
     } catch (e) {}
   };
 
   const fetchQueues = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/queues');
+      const res = await axios.get(`${API_BASE}/api/queues`);
       setQueues(res.data);
     } catch (e) {}
   };
@@ -72,7 +76,7 @@ export default function App() {
 
   const handleCreateJob = async () => {
     try {
-      await axios.post('http://localhost:8080/api/jobs', {
+      await axios.post(`${API_BASE}/api/jobs`, {
         name: "Test Job " + Math.floor(Math.random() * 1000),
         payload: "{}",
         status: "PENDING"
