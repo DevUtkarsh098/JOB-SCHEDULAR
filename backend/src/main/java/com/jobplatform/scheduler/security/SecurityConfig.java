@@ -13,8 +13,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .anyRequest().permitAll() // Allow all for quick testing
+                .requestMatchers(
+                    "/api/**",
+                    "/actuator/**",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/h2-console/**"
+                ).permitAll()
+                .anyRequest().permitAll()
             );
         return http.build();
     }
