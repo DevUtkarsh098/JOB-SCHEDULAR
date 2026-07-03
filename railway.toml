@@ -1,0 +1,9 @@
+# Railway configuration for Spring Boot backend deployment
+[build]
+builder = "dockerfile"
+dockerfilePath = "backend/Dockerfile"
+
+[deploy]
+startCommand = "java -jar app.jar"
+healthcheckPath = "/actuator/health"
+restartPolicyType = "on_failure"

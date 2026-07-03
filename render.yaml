@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: codity-jobs-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: PORT
+        value: 8080
+    healthCheckPath: /actuator/health
